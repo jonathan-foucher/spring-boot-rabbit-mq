@@ -1,0 +1,33 @@
+server:
+  port: 8091
+
+spring:
+  cloud:
+    function:
+      definition: consumeMovie
+    stream:
+      bindings:
+        consumeMovie-in-0:
+          destination: movies
+          group: movie-consumer
+          consumer:
+            max-attempts: 3
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      group:
+        liveness:
+          include:
+            - rabbit
+        readiness:
+          include:
+            - rabbit
