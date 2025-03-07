@@ -1,0 +1,30 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /rabbitmq-producer
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        movies-out-0:
+          destination: movies
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      group:
+        liveness:
+          include:
+            - rabbit
+        readiness:
+          include:
+            - rabbit
